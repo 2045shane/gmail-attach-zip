@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail 附件批量下载 / 打包 zip",
+  "version": "0.1.0",
+  "description": "从当前 Gmail 页面可见附件生成 ZIP，全部本地处理。",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://mail-attachment.googleusercontent.com/*"
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "src/options/options.html",
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "js": [
+        "src/lib/quota.js",
+        "src/lib/naming.js",
+        "src/lib/attachments.js",
+        "src/lib/zip.js",
+        "src/content/extractors.js",
+        "src/content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+chrome.tabs.query({active:true,currentWindow:true}).then(([tab])=>{let supported=false;try{const u=new URL(tab?.url);supported=u.protocol==='https:'&&u.hostname==='mail.google.com';}catch{}document.getElementById('page').textContent=supported?'当前页面：Gmail':'当前页面不是 Gmail，请前往 mail.google.com';}).catch(()=>{document.getElementById('page').textContent='无法读取当前页面';});
+document.getElementById('settings').onclick=()=>chrome.runtime.openOptionsPage();
